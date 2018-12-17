@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-cloak的使用</title>
+  <!-- 还需要结合我们的css属性选择器 -->
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+  <script src="/lib/vue.js"></script>
+</head>
+<body>
+  <div id="test">
+    <p v-cloak>{{msg}}</p>
+  </div>
+
+  <script>
+    // 测试的时候，可以将浏览器开发工具的network调慢
+    var vm = new Vue({
+      el: '#test',
+      data() {
+        return {
+          msg: '你能看到我吗？'
+        }
+      }
+    });
+  </script>
+</body>
+</html>

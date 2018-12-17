@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue的生命周期</title>
+  <script src="/lib/vue.js"></script>
+</head>
+<body>
+  <div id="test">
+    <p id="msg">{{msg}}</p>
+    <input type="text" id="input">
+    <input type="button" value="更新msg" @click="updateMsg">
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#test',
+      data() {
+        return{
+          msg: '这是data中的数据'
+        }
+      },
+      methods: {
+        print() {
+          console.log('print..')
+        },
+        updateMsg() {
+          this.msg = '我是更新后的msg..'
+        }
+      },
+      // 生命周期钩子函数
+      beforeCreate() {
+        console.log(this); // 一个Vue实例
+        console.log(this.msg); // undefined
+        this.print(); // this.print is not a function.
+      },
+      created() {
+        console.log(this); // 一个Vue实例
+        console.log(this.msg); // this.print()
+        this.print(); // print..
+      },
+      beforeMount() {
+        console.log(document.getElementById('msg').innerText); // {{msg}}
+        console.log(document.getElementById('input').focus()); // 此处无效，DOM还没有挂载到页面中
+        // debugger // 此时页面上显示的是 {{msg}}
+      },
+      mounted() {
+        console.log(document.getElementById('msg').innerText); // 这是data中的数据
+        console.log(document.getElementById('input').focus()); // 有效
+      },
+      beforeUpdate() {
+        console.log(this.msg); // 我是更新后的msg..
+        console.log(document.getElementById('msg').innerText); // 这是data中的数据
+      },
+      update() {
+        console.log(this.msg); // 我是更新后的msg..
+        console.log(document.getElementById('msg').innerText); // 我是更新后的msg..
+      }
+    });
+  </script>
+</body>
+</html>

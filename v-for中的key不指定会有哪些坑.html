@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-for中的key不指定会有哪些坑</title>
+	<!-- 引入vue.js -->
+	<script src="/lib/vue.js"></script>
+</head>
+<body>
+	<div id="test">
+		<div>
+			<label for="id">id</label>
+			<input type="text" id="id" v-model="id">
+			<label for="name">name</label>
+			<input type="text" id="name" v-model="name">
+			<button @click="addItem('after')">往后添加元素</button>
+			<button @click="addItem('before')">往前添加元素</button>
+		</div>
+		<!-- v-for -->
+		<div v-for="(item, index) in items" :key="item.index" for-item="user">
+			<p>
+				<input type="checkbox">
+				{{item.id}}--{{item.name}}
+			</p>
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: '#test',
+			data() {
+				return {
+					id: '',
+					name: '',
+					items: [
+					{ id: 1, name: '张三' },
+					{ id: 2, name: '李四' },
+					{ id: 3, name: '王五' },
+					{ id: 4, name: '小程序' },
+					{ id: 5, name: '张天' },
+					]
+				}
+			},
+			methods: {
+				addItem(type) {
+					if(type === 'after') {
+						this.items.push({
+							id: this.id,
+							name: this.name
+						})
+						return
+					}
+					if(type === 'before') {
+						this.items.unshift({
+							id: this.id,
+							name: this.name
+						})
+						return
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

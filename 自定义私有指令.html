@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>自定义私有指令</title>
+  <script src="/lib/vue.js"></script>
+</head>
+<body>
+  <div id="test">
+    <p v-add:c.a.b="num1+num2+3">
+      <text>{{msg}}</text>
+    </p>
+    <input v-add type="text" v-model="msg">
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#test',
+      data() {
+        return {
+          msg: '看你能改变我不',
+          num1: 1,
+          num2: 2
+        }
+      },
+      directives: {
+        add: {
+          // el 和 binding是两个参数，可以自定义名称的，但是不建议修改。
+          bind(el, binding){
+            console.log(el) // <p>看你能改变我不</p>
+            console.log(binding.name) // add
+            console.log(binding.value) // 6
+            console.log(binding.expression) // num1+num2+3
+            console.log(binding.arg) // c
+            console.log(binding.modifiers) // { a: true, b: true }
+
+            // el: 原生的JS对象。一下这些操作都是OK的
+            el.innerHTML='在bind中修改后的值';
+            el.setAttribute('title', '在bind中设置的title');
+            var children = el.childNodes;
+            console.log(children);
+            // 此时的 DOM 在内存中，但是所有的东西是可以获取到的。但是有些操作是不行的，如focus。
+            el.focus(); // 此处是无效的
+          },
+          inserted(el){
+            console.log('inserted..')
+            // input 的 focus在此处才生效，因为在bind中，元素还没有插入到文档中。
+            el.focus();
+          },
+          update(el, oldValue){
+            console.log('update..')
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
