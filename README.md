@@ -4,28 +4,28 @@
 + `v-cloak`可以解决插值表达式 `{{}}` **渲染闪烁**的问题
   - [官方文档](https://cn.vuejs.org/v2/api/#v-cloak '点击查看vue.js官方文档')
   - `v-cloak`必须结合 css 属性选择器 `[v-cloak]{ display: none; }` 一起使用；
-  ```css
+    ```css
     /* css */
     [v-cloak]{
       display: none;
     }
-  ```
-   ```html
-   <!-- html -->
+    ```
+    ```html
+    <!-- html -->
     <div id="test">
       <p v-cloak>{{ msg }}</p>
     </div>
-   ```
+    ```
     ```javascript
-      // javascript
-      var vm = new Vue({
-        el: '#test',
-        data() {
-          return {
-            msg: '我是data中定义的msg'
-          }
+    // javascript
+    var vm = new Vue({
+      el: '#test',
+      data() {
+        return {
+          msg: '我是data中定义的msg'
         }
-      })
+      }
+    })
     ```
 + `v-text` 默认是没有闪烁问题的；
 + `v-text` 会覆盖元素中原本的内容，但是插值表达式只会替换自己的占位符，不会把整个元素的内容清空；

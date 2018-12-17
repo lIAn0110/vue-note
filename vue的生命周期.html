@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>vue的生命周期</title>
   <script src="/lib/vue.js"></script>
 </head>
+
 <body>
   <div id="test">
     <p id="msg">{{msg}}</p>
@@ -18,7 +20,7 @@
     var vm = new Vue({
       el: '#test',
       data() {
-        return{
+        return {
           msg: '这是data中的数据'
         }
       },
@@ -61,4 +63,5 @@
     });
   </script>
 </body>
+
 </html>
