@@ -163,6 +163,10 @@ var vm = new Vue({
 + post 请求：`application/x-www-form-urlencoded`
   -手动发起的请求默认没有表单格式, 所以, 有的服务器处理不了
 + jsonp: 只支持 GET 请求, 实际上是动态创建 script 标签（不会有跨域问题）
-  - 服务器可能不知道你的 callback 的名称, 可以通过参数传过去。
+  - 服务器可能不知道你的 callback 的名称, 可以通过参数传过去
   - `<script src="https://xxx.com/api?callback=callbackName"></script>  =>  <script>callbackName()</script>`
-    - callbackName 就是预先定义好的回调方法, 返回数据后会调用这个函数。
+    - callbackName 就是预先定义好的回调方法, 返回数据后会调用这个函数
+
+### 动画
++ 为什么要有动画?
+  - 提高用户体验, ***帮助用户更好地理解页面中的功能***
